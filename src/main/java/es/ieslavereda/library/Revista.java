@@ -1,8 +1,5 @@
 package es.ieslavereda.library;
 
-/**
- *     Revista: Nombre, tematica y periodicidad (semanal / mensual / Trimestral)
- */
 public class Revista extends Publicacion{
 
     private String nombre;
@@ -17,7 +14,24 @@ public class Revista extends Publicacion{
         this.periodicidad = periodicidad;
     }
 
-    private enum Periodicidad{
+    public String getNombre() {
+        return nombre;
+    }
+
+    public String getTematica() {
+        return tematica;
+    }
+
+    public Periodicidad getPeriodicidad() {
+        return periodicidad;
+    }
+
+    @Override
+    public String toString() {
+        return super.toString() + "\n - Revista: " + "nombre=" + nombre + ", periodicidad=" + periodicidad;
+    }
+
+    enum Periodicidad{
         SEMANAL("semanal"),
         MENSUAL("mensual"),
         TRIMESTRAL("trimestral");

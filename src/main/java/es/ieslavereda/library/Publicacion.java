@@ -1,9 +1,5 @@
 package es.ieslavereda.library;
 
-/**
- * De todos ellos se pretende almacenar su editorial, número de páginas y si están en color o blanco y negro
- */
-
 public abstract class Publicacion {
 
     private String editorial;
@@ -16,4 +12,23 @@ public abstract class Publicacion {
         this.enColor = enColor;
     }
 
+    public String getEditorial() {
+        return editorial;
+    }
+
+    public int getNumPaginas() {
+        return numPaginas;
+    }
+
+    public boolean isEnColor() {
+        return enColor;
+    }
+
+    @Override
+    public String toString() {
+        return "Publicación: " +
+                "editorial=" + editorial +
+                ", numPaginas=" + numPaginas +
+                ", enColor=" + ((enColor)?" en color " : " en blanco y negro ");
+    }
 }

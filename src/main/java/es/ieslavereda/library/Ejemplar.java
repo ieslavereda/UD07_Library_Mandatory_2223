@@ -2,12 +2,61 @@ package es.ieslavereda.library;
 
 import es.ieslavereda.tad.ListLib;
 
+import java.time.LocalDate;
+
 /**
  * Llevando un control de a quien se le ha prestado un ejemplar desde su compra.
  */
 
 public class Ejemplar {
 
-    private ListLib<Prestamo> prestado;
+    private Libro libro;
+    private static int codigo;
+    private boolean prestado;
+    private ListLib<Prestamo> historicoPrestados;
 
+    public Ejemplar(Libro libro) {
+        this.libro = libro;
+        this.codigo = ++codigo;
+        this.historicoPrestados = new ListLib<>();
+        this.prestado = false;
+    }
+
+    public Libro getLibro() {
+        return libro;
+    }
+    public int getCodigo() { return codigo;}
+    public boolean isPrestado() {
+        return prestado;
+    }
+    public ListLib<Prestamo> getHistoricoPrestados() {
+        return historicoPrestados;
+    }
+
+    public boolean prestar(Cliente cliente){
+        if(prestado)
+            return false;
+
+        if(cliente.prestar(this)){
+            historicoPrestados.add(new Prestamo(cliente, this, LocalDate.now()));
+            prestado = true;
+            return prestado;
+        }
+        return false;
+    }
+
+    public boolean devolver(Cliente cliente){
+        if(!prestado)
+            return false;
+        if(cliente.devolver(this)){
+            prestado = false;
+            return true;
+        }
+        return false;
+    }
+
+    @Override
+    public String toString() {
+        return " codigo " +  codigo;
+    }
 }
