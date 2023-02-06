@@ -18,6 +18,7 @@ public class Biblioteca {
 
     public boolean bajaCliente(Cliente cliente) {
         if (clientes.contains(cliente)) {
+            cliente.devolverTodo();
             clientes.remove(clientes.search(cliente));
             return true;
         }

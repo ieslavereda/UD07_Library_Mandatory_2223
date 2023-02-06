@@ -21,33 +21,37 @@ public class Cliente {
     public String getNombre() {
         return nombre;
     }
+
     public String getDni() {
         return dni;
     }
+
     public ListLib<Prestamo> getPrestados() {
         return prestados;
     }
+
     public void setNombre(String nombre) {
         this.nombre = nombre;
     }
+
     public void setDni(String dni) {
         this.dni = dni;
     }
 
 
-    public boolean prestar(Ejemplar ejemplar){
-        if(ejemplar==null || prestados.size() >= 3)
+    public boolean prestar(Ejemplar ejemplar) {
+        if (ejemplar == null || prestados.size() >= 3)
             return false;
         prestados.add(new Prestamo(this, ejemplar, LocalDate.now()));
         return true;
     }
 
-    public boolean devolver(Ejemplar ejemplar){
-        if(ejemplar==null || getPrestados().isEmpty())
+    public boolean devolver(Ejemplar ejemplar) {
+        if (ejemplar == null || getPrestados().isEmpty())
             return false;
 
         for (int i = 0; i < getPrestados().size(); i++) {
-            if(prestados.get(i).getEjemplar().equals(ejemplar)){
+            if (prestados.get(i).getEjemplar().equals(ejemplar)) {
                 prestados.get(i).setFechaDevolucion(LocalDate.now());
                 prestados.remove(i);
                 return true;
@@ -55,6 +59,13 @@ public class Cliente {
         }
 
         return false;
+    }
+
+    public void devolverTodo() {
+        for (int i = 0; i < getPrestados().size(); i++) {
+            prestados.get(i).setFechaDevolucion(LocalDate.now());
+            prestados.remove(i);
+        }
     }
 
     @Override

@@ -26,7 +26,7 @@ public abstract class Publicacion {
 
     @Override
     public String toString() {
-        return "Publicación: " +
+        return "\nPublicación: " +
                 "editorial=" + editorial +
                 ", numPaginas=" + numPaginas +
                 ", enColor=" + ((enColor)?" en color " : " en blanco y negro ");

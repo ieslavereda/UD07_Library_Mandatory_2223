@@ -12,12 +12,13 @@ public class Ejemplar {
 
     private Libro libro;
     private static int codigo;
+    private String codigoEj;
     private boolean prestado;
     private ListLib<Prestamo> historicoPrestados;
 
     public Ejemplar(Libro libro) {
         this.libro = libro;
-        this.codigo = ++codigo;
+        this.codigoEj = libro.getISBN()+"-"+codigo++;
         this.historicoPrestados = new ListLib<>();
         this.prestado = false;
     }
@@ -25,7 +26,6 @@ public class Ejemplar {
     public Libro getLibro() {
         return libro;
     }
-    public int getCodigo() { return codigo;}
     public boolean isPrestado() {
         return prestado;
     }
@@ -57,6 +57,6 @@ public class Ejemplar {
 
     @Override
     public String toString() {
-        return " codigo " +  codigo;
+        return " codigo " +  codigoEj;
     }
 }
