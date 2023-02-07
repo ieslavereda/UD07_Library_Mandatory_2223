@@ -16,7 +16,7 @@ public class ListLib<E> {
         return size;
     }
 
-    public Node<E> getHead() {
+    private Node<E> getHead() {
         return head;
     }
 

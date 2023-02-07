@@ -42,7 +42,9 @@ public class Ejemplar {
         if(!prestado)
             return false;
         if(cliente.devolver(this)){
-            historicoPrestados.getHead().getElem().setFechaDevolucion(LocalDate.now());
+            Prestamo<Cliente> prestamo = historicoPrestados.remove(0);
+            prestamo.setFechaDevolucion(LocalDate.now());
+            historicoPrestados.add(prestamo);
             prestado = false;
             return true;
         }

@@ -1,6 +1,6 @@
 package es.ieslavereda.tad;
 
-public class Node<E> {
+class Node<E> {
         private E elem;
         private Node<E> next;
 
