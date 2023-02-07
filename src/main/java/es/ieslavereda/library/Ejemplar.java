@@ -1,12 +1,7 @@
 package es.ieslavereda.library;
 
 import es.ieslavereda.tad.ListLib;
-
 import java.time.LocalDate;
-
-/**
- * Llevando un control de a quien se le ha prestado un ejemplar desde su compra.
- */
 
 public class Ejemplar {
 
@@ -36,7 +31,7 @@ public class Ejemplar {
             return false;
 
         if(cliente.prestar(this)){
-            historicoPrestados.add(new Prestamo(cliente, this, LocalDate.now()));
+            historicoPrestados.add(new Prestamo<Cliente>(cliente, LocalDate.now()));
             prestado = true;
             return prestado;
         }

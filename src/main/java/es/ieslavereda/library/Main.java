@@ -93,7 +93,7 @@ public class Main {
         bibliotecaPobla.prestarEjemplarLibro(cienanyos,blanca);
 
         for (int i = 0; i < quijote.getCantidadEjemplares(); i++) {
-            System.out.println(quijote.getEjemplares().get(i).getHistoricoPrestados().toString());
+            System.out.println("ISBN: " + quijote.getEjemplares().get(i).getcodigoEj() + " " + quijote.getEjemplares().get(i).getHistoricoPrestados().toString());
         }
 
         System.out.println(bibliotecaPobla);

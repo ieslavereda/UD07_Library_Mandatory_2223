@@ -1,5 +1,7 @@
 package es.ieslavereda.tad;
 
+import java.lang.reflect.Array;
+
 public class ListLib<E> {
 
     private Node<E> head;
@@ -46,8 +48,8 @@ public class ListLib<E> {
         return result;
     }
 
-    public E[] toArray() {
-        E[] vector = (E[]) new Object[size];
+    public E[] toArray(Class<E> c) {
+        E[] vector = (E[]) Array.newInstance(c, size);
         Node<E> node = head;
         for (int i = 0; i < size; i++) {
             vector[i] = (E) node.getElem();

@@ -1,7 +1,6 @@
 package es.ieslavereda.library;
 
 import es.ieslavereda.tad.ListLib;
-
 import java.time.LocalDate;
 import java.util.Objects;
 
@@ -42,7 +41,7 @@ public class Cliente {
     public boolean prestar(Ejemplar ejemplar) {
         if (ejemplar == null || prestados.size() >= 3)
             return false;
-        prestados.add(new Prestamo(this, ejemplar, LocalDate.now()));
+        prestados.add(new Prestamo<Ejemplar>(ejemplar, LocalDate.now()));
         return true;
     }
 
@@ -51,7 +50,7 @@ public class Cliente {
             return false;
 
         for (int i = 0; i < getPrestados().size(); i++) {
-            if (prestados.get(i).getEjemplar().equals(ejemplar)) {
+            if (prestados.get(i).getType().equals(ejemplar)) {
                 prestados.get(i).setFechaDevolucion(LocalDate.now());
                 prestados.remove(i);
                 return true;
