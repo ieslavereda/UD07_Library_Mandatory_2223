@@ -26,7 +26,7 @@ public class Main {
         luna.setDni("73X");
         luna.setNombre("Lluna");
 
-        System.out.println(bibliotecaPobla);
+//        System.out.println(bibliotecaPobla);
 
         //Dar de alta cualquier tipo de publicacion
         Revista time = new Revista("Richard Stengel", 200, true, "Time", "Actualidad", Revista.Periodicidad.SEMANAL);
@@ -38,10 +38,10 @@ public class Main {
         Publicacion levante = new Periodico("Prensa iberica", 70, false, "Levante EMV", LocalDate.of(2023,02,28));
         bibliotecaPobla.altaPublicacion(levante);
 
-        Libro quijote = new Libro("Edi1", 500, false, "Miguel de Cervantes", "Don Quijote de la Mancha", "ISBN1", 15);
-        Publicacion cienanyos = new Libro("Edi2", 300, false, "Gabriel García Márquez", "Cien años de soledad", "ISBN2", 3);
+        Libro quijote = new Libro("Edi1", 500, false, "Miguel de Cervantes", "Don Quijote de la Mancha", "ISBN1", 5);
+        Libro cienanyos = new Libro("Edi2", 300, false, "Gabriel García Márquez", "Cien años de soledad", "ISBN2", 3);
         Libro hombresno = new Libro("Edi3", 400, false, "Stieg Larsson", "Los hombres que no amaban a las mujeres", "ISBN3", 1);
-        Publicacion guardian = new Libro("Edi4", 170, false, "Salinger", "El guardián entre el centeno", "ISBN4", -1);
+        Libro guardian = new Libro("Edi4", 170, false, "Salinger", "El guardián entre el centeno", "ISBN4", -1);
         bibliotecaPobla.altaPublicacion(quijote);
         bibliotecaPobla.altaPublicacion(cienanyos);
         bibliotecaPobla.altaPublicacion(hombresno);
@@ -54,16 +54,50 @@ public class Main {
         bibliotecaPobla.altaPublicacion(borrar2);
         bibliotecaPobla.altaPublicacion(borrar1);
 
-        System.out.println(bibliotecaPobla);
+//        System.out.println(bibliotecaPobla);
 
-//        Dar de baja cualquier tipo de publicacion
+        // Dar de baja cualquier tipo de publicacion
         bibliotecaPobla.bajaPublicacion(borrar1);
         bibliotecaPobla.bajaPublicacion(borrar1);
         bibliotecaPobla.bajaPublicacion(borrar2);
         bibliotecaPobla.bajaPublicacion(borrar1);
         bibliotecaPobla.bajaPublicacion(borrar3);
 
+//        System.out.println(bibliotecaPobla);
+
+        // Prestar o devolver ejemplar de un libro
+        bibliotecaPobla.devolverEjemplarLibro(guardian,pepa);
+        bibliotecaPobla.prestarEjemplarLibro(guardian,pepa);
+        bibliotecaPobla.prestarEjemplarLibro(guardian,pepa);
+        bibliotecaPobla.devolverEjemplarLibro(guardian,pepa);
+
+        bibliotecaPobla.devolverEjemplarLibro(hombresno,pepa);
+        bibliotecaPobla.prestarEjemplarLibro(hombresno,pepa);
+        bibliotecaPobla.prestarEjemplarLibro(hombresno,pepa);
+        bibliotecaPobla.devolverEjemplarLibro(hombresno,pepa);
+
+        bibliotecaPobla.prestarEjemplarLibro(quijote,luna);
+        bibliotecaPobla.prestarEjemplarLibro(quijote,luna);
+        bibliotecaPobla.prestarEjemplarLibro(quijote,luna);
+        bibliotecaPobla.prestarEjemplarLibro(quijote,luna);
+        bibliotecaPobla.prestarEjemplarLibro(quijote,luna);
+        bibliotecaPobla.devolverEjemplarLibro(quijote,luna);
+        bibliotecaPobla.devolverEjemplarLibro(quijote,luna);
+        bibliotecaPobla.devolverEjemplarLibro(quijote,luna);
+        bibliotecaPobla.prestarEjemplarLibro(quijote,luna);
+        bibliotecaPobla.prestarEjemplarLibro(quijote,luna);
+        bibliotecaPobla.prestarEjemplarLibro(quijote,luna);
+
+        bibliotecaPobla.prestarEjemplarLibro(cienanyos,luna);
+        bibliotecaPobla.prestarEjemplarLibro(cienanyos,blanca);
+        bibliotecaPobla.prestarEjemplarLibro(cienanyos,blanca);
+
+        for (int i = 0; i < quijote.getCantidadEjemplares(); i++) {
+            System.out.println(quijote.getEjemplares().get(i).getHistoricoPrestados().toString());
+        }
+
         System.out.println(bibliotecaPobla);
+
     }
 
 }

@@ -39,6 +39,23 @@ public class Libro extends Publicacion {
         return ejemplares;
     }
 
+    public int ejemplarDisponible(){
+        for (int i = 0; i < ejemplares.size(); i++) {
+            if(!(ejemplares.get(i).isPrestado()))
+                return i;
+        }
+        return -1;
+    }
+
+    public int ejemplarPrestado(Cliente cliente){
+        for (int i = 0; i < ejemplares.size(); i++) {
+            if((ejemplares.get(i).isPrestado()))
+                if(ejemplares.get(i).devolver(cliente))
+                    return i;
+        }
+        return -1;
+    }
+
     @Override
     public String toString() {
         return super.toString() + "\n - Libro: " + ", ISBN=" + ISBN + ", ejemplares=" + ejemplares;

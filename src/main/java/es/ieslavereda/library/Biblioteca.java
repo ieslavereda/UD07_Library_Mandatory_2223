@@ -37,6 +37,31 @@ public class Biblioteca {
         return false;
     }
 
+    public boolean prestarEjemplarLibro(Libro libro, Cliente cliente){
+        if(libro==null || !(libro instanceof Libro)
+                || (cliente==null) || !(clientes.contains(cliente))
+                || !(publicaciones.contains(libro)))
+            return false;
+        int index = libro.ejemplarDisponible();
+        if(index>=0) {
+            libro.getEjemplares().get(index).prestar(cliente);
+            return true;
+        }
+        return false;
+    }
+
+    public boolean devolverEjemplarLibro(Libro libro, Cliente cliente){
+        if(libro==null || !(libro instanceof Libro)
+                || (cliente==null) || !(clientes.contains(cliente))
+                || !(publicaciones.contains(libro)))
+            return false;
+
+        if(libro.ejemplarPrestado(cliente)>=0)
+            return true;
+
+        return false;
+    }
+
     @Override
     public String toString() {
         return "Biblioteca: " +
@@ -44,9 +69,9 @@ public class Biblioteca {
                 "\n publicaciones=" + publicaciones;
     }
 
-    //    Dar de alta cualquier tipo de publicacion
-//    Dar de baja cualquier tipo de publicacion
-//    Prestar y devolver un ejemplar de un libro
+
+
+
 
 
 }

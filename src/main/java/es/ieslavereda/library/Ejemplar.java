@@ -23,9 +23,7 @@ public class Ejemplar {
         this.prestado = false;
     }
 
-    public Libro getLibro() {
-        return libro;
-    }
+    public String getcodigoEj() {return codigoEj;}
     public boolean isPrestado() {
         return prestado;
     }
@@ -49,6 +47,7 @@ public class Ejemplar {
         if(!prestado)
             return false;
         if(cliente.devolver(this)){
+            historicoPrestados.getHead().getElem().setFechaDevolucion(LocalDate.now());
             prestado = false;
             return true;
         }

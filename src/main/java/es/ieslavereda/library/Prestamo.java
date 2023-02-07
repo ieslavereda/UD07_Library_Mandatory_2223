@@ -35,9 +35,9 @@ public class Prestamo {
 
     @Override
     public String toString() {
-        return " Prestamo: " + "\n cliente=" + cliente +
-                                "\n ejemplar=" + ejemplar +
-                                "\n fechaPrestamo=" + fechaPrestamo + ", fechaDevolucion=" + fechaDevolucion;
+        return " Prestamo: cliente=" + cliente.getNombre() +
+                                " ejemplar=" + ejemplar.getcodigoEj() +
+                                " fechaPrestamo=" + fechaPrestamo + ", fechaDevolucion=" + fechaDevolucion;
     }
 
 }

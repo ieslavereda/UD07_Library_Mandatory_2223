@@ -83,7 +83,7 @@ public class ListLib<E> {
         if (isEmpty() || index < 0 || index >= size)
             return result;
         Node<E> node = head;
-        for (int i = 0; i <= index; i++) {
+        for (int i = 0; i < index; i++) {
             node = node.getNext();
         }
         result = node.getElem();
