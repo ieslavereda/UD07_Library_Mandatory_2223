@@ -1,15 +1,15 @@
-package es.ieslavereda.library;
+package es.ieslavereda.library_2nversion;
 
 public abstract class Publicacion {
 
     private String editorial;
     private int numPaginas;
-    private Impresion impresion;
+    private boolean enColor;
 
-    public Publicacion(String editorial, int numPaginas, Impresion impresion){
+    public Publicacion(String editorial, int numPaginas, boolean enColor){
         this.editorial = editorial;
         this.numPaginas = numPaginas;
-        this.impresion = impresion;
+        this.enColor = enColor;
     }
 
     public String getEditorial() {
@@ -20,19 +20,15 @@ public abstract class Publicacion {
         return numPaginas;
     }
 
-    public Impresion getImpresion() {
-        return impresion;
+    public boolean isEnColor() {
+        return enColor;
     }
 
     @Override
     public String toString() {
-        return "Publicación: " +
+        return "\nPublicación: " +
                 "editorial=" + editorial +
                 ", numPaginas=" + numPaginas +
-                ", impresion=" + impresion ;
-    }
-
-    public enum Impresion {
-        COLOR,BN
+                ", enColor=" + ((enColor)?" en color " : " en blanco y negro ");
     }
 }

@@ -1,28 +1,30 @@
 package es.ieslavereda.library;
-
-import es.ieslavereda.tad.ListLib;
+import es.ieslavereda.tad.Lista;
 
 public class Biblioteca {
 
-    private ListLib<Cliente> clientes;
-    private ListLib<Publicacion> publicaciones;
+    public static final int MAX_EJEMPLARES_CLIENTE = 3;
+
+    private Lista<Cliente> clientes;
+    private Lista<Publicacion> publicaciones;
 
     public Biblioteca() {
-        clientes = new ListLib<>();
-        publicaciones = new ListLib<>();
+        clientes = new Lista<>();
+        publicaciones = new Lista<>();
     }
 
     public void altaCliente(Cliente cliente) {
         clientes.add(cliente);
     }
 
-    public boolean bajaCliente(Cliente cliente) {
-        if (clientes.contains(cliente)) {
-            cliente.devolverTodo();
-            clientes.remove(clientes.search(cliente));
-            return true;
-        }
-        return false;
+    public boolean bajaCliente(String DNI) {
+        Cliente cliente = getCliente(DNI);
+        if(cliente==null || cliente.cantidadPrestados()>0)
+            return false;
+
+        clientes.remove(clientes.search(cliente));
+
+        return true;
     }
 
     public void altaPublicacion(Publicacion publicacion){
@@ -37,30 +39,62 @@ public class Biblioteca {
         return false;
     }
 
-    public boolean prestarEjemplarLibro(Libro libro, Cliente cliente){
-        if(libro==null || !(libro instanceof Libro)
-                || (cliente==null) || !(clientes.contains(cliente))
-                || !(publicaciones.contains(libro)))
-            return false;
-        int index = libro.ejemplarDisponible();
-        if(index>=0) {
-            libro.getEjemplares().get(index).prestar(cliente);
-            return true;
+    public Libro getLibro(String ISBN){
+
+        Publicacion publicacion;
+        int i=0;
+        while ((publicacion = publicaciones.get(i))!=null){
+            if(publicacion instanceof Libro){
+                Libro l = (Libro) publicacion;
+                if(l.getISBN().compareTo(ISBN)==0)
+                    return l;
+            }
+            i++;
         }
-        return false;
+        return null;
+    }
+    public Cliente getCliente(String DNI){
+
+        Cliente c;
+        int i=0;
+        while((c = clientes.get(i))!=null){
+            if(c.getDni().compareTo(DNI)==0)
+                return c;
+            i++;
+        }
+
+        return null;
     }
 
-    public boolean devolverEjemplarLibro(Libro libro, Cliente cliente){
-        if(libro==null || !(libro instanceof Libro)
-                || (cliente==null) || !(clientes.contains(cliente))
-                || !(publicaciones.contains(libro)))
-            return false;
+    public boolean devolver(String ISBN, int codigoEjemplar, String DNI){
 
-        if(libro.ejemplarPrestado(cliente)>=0)
-            return true;
+        Libro libro = getLibro(ISBN);
+        if(libro==null) return false;
 
-        return false;
+        Ejemplar ejemplar = libro.getEjemplar(codigoEjemplar);
+        if(ejemplar==null) return false;
+
+        Cliente cliente = getCliente(DNI);
+        if(cliente==null) return false;
+
+        return cliente.devolver(ejemplar);
     }
+
+    public boolean prestar(String ISBN, int codigoEjemplar, String DNI){
+
+        Libro libro = getLibro(ISBN);
+        if(libro==null) return false;
+
+        Ejemplar ejemplar = libro.getEjemplar(codigoEjemplar);
+        if(ejemplar==null) return false;
+
+        Cliente cliente = getCliente(DNI);
+        if(cliente==null) return false;
+
+
+        return cliente.prestar(ejemplar);
+    }
+
 
     @Override
     public String toString() {

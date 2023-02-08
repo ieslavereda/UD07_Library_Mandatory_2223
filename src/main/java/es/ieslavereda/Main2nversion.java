@@ -1,8 +1,9 @@
-package es.ieslavereda.library;
+package es.ieslavereda;
 
+import es.ieslavereda.library_2nversion.*;
 import java.time.LocalDate;
 
-public class Main {
+public class Main2nversion {
 
     public static void main(String[] args) {
         Biblioteca bibliotecaPobla = new Biblioteca();

@@ -1,12 +1,13 @@
-package es.ieslavereda.library;
+package es.ieslavereda.library_2nversion;
+
 import java.time.LocalDate;
 
-public class Periodico extends Publicacion{
+public class Periodico extends Publicacion {
     private String nombre;
     private LocalDate diaPublicacion;
 
-    public Periodico(String editorial, int numPaginas, Impresion impresion, String nombre, LocalDate diaPublicacion) {
-        super(editorial, numPaginas, impresion);
+    public Periodico(String editorial, int numPaginas, boolean enColor, String nombre, LocalDate diaPublicacion) {
+        super(editorial, numPaginas, enColor);
         this.nombre = nombre;
         this.diaPublicacion = diaPublicacion;
     }

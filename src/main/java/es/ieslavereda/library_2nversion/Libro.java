@@ -1,21 +1,26 @@
-package es.ieslavereda.library;
+package es.ieslavereda.library_2nversion;
 import es.ieslavereda.tad.Lista;
 
 public class Libro extends Publicacion {
-
     private String autor;
     private String titulo;
     private String ISBN;
-
+    private int cantidadEjemplares;
     private Lista<Ejemplar> ejemplares;
 
-    public Libro(String editorial, int numPaginas, Impresion impresion, String autor, String titulo, String ISBN) {
-        super(editorial, numPaginas, impresion);
+    public Libro(String editorial, int numPaginas, boolean enColor, String autor, String titulo, String ISBN) {
+        super(editorial, numPaginas, enColor);
         this.autor = autor;
         this.titulo = titulo;
         this.ISBN = ISBN;
         this.ejemplares = new Lista<>();
-
+        this.cantidadEjemplares = ejemplares.size();
+    }
+    public Libro(String editorial, int numPaginas, boolean enColor, String autor, String titulo, String ISBN, int cantidadEjemplares) {
+        this(editorial, numPaginas, enColor, autor, titulo, ISBN);
+        if (cantidadEjemplares>0)
+            crearEjemplares(cantidadEjemplares);
+        this.cantidadEjemplares = ejemplares.size();
     }
 
     public String getAutor() {
@@ -34,43 +39,25 @@ public class Libro extends Publicacion {
         return ejemplares;
     }
 
-    public Lista<Ejemplar> ejemplaresDisponibles(){
-
-        Lista<Ejemplar> aux = new Lista<>();
-
+    public int ejemplarDisponible(){
         for (int i = 0; i < ejemplares.size(); i++) {
             if(!(ejemplares.get(i).isPrestado()))
-                aux.add(ejemplares.get(i));
+                return i;
         }
-        return aux;
+        return -1;
     }
 
-    public Lista<Ejemplar> ejemplaresPrestados(){
-
-        Lista<Ejemplar> aux = new Lista<>();
-
+    public int ejemplarPrestado(Cliente cliente){
         for (int i = 0; i < ejemplares.size(); i++) {
             if((ejemplares.get(i).isPrestado()))
-                aux.add(ejemplares.get(i));
+                if(ejemplares.get(i).devolver(cliente))
+                    return i;
         }
-
-        return aux;
+        return -1;
     }
 
-    public Ejemplar getEjemplar(int cod){
-
-        Ejemplar ejemplar;
-        int i=0;
-        while ((ejemplar = ejemplares.get(i))!=null) {
-            if(ejemplar.getCodigo()==cod)
-                return ejemplar;
-            i++;
-        }
-
-        return null;
-    }
     public void crearEjemplar(){
-        ejemplares.add(new Ejemplar(this,ejemplares.size()+1));
+        ejemplares.add(new Ejemplar(this));
     }
     public void crearEjemplares(int cantidad){
         for (int i=0;i<cantidad;i++)

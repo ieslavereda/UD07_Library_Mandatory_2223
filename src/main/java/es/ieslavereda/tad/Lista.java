@@ -2,12 +2,12 @@ package es.ieslavereda.tad;
 
 import java.lang.reflect.Array;
 
-public class ListLib<E> {
+public class Lista<E> {
 
     private Node<E> head;
     private int size;
 
-    public ListLib() {
+    public Lista() {
         this.head = null;
         this.size = 0;
     }
@@ -16,8 +16,10 @@ public class ListLib<E> {
         return size;
     }
 
-    private Node<E> getHead() {
-        return head;
+    public E getHead() {
+        if (head==null)
+            return null;
+        return head.getElement();
     }
 
     public boolean isEmpty() {
@@ -41,21 +43,26 @@ public class ListLib<E> {
             return result;
         Node<E> node = head;
         for (int i = 0; i < size; i++) {
-            if (node.getElem().equals(elem))
+            if (node.getElement().equals(elem))
                 return i;
             node = node.getNext();
         }
         return result;
     }
 
-    public E[] toArray(Class<E> c) {
-        E[] vector = (E[]) Array.newInstance(c, size);
-        Node<E> node = head;
-        for (int i = 0; i < size; i++) {
-            vector[i] = (E) node.getElem();
-            node = node.getNext();
+    public E[] asArray(Class<E> c) {
+
+        E[] aux =  (E[]) Array.newInstance(c, size);
+
+        Node<E> n = head;
+        int i = 0;
+        while (n != null) {
+            aux[i] = n.getElement();
+            n = n.getNext();
+            i++;
         }
-        return vector;
+
+        return aux;
     }
 
     public E remove(int index) {
@@ -63,7 +70,7 @@ public class ListLib<E> {
         if (isEmpty() || index < 0 || index >= size)
             return result;
         if (index == 0) {
-            result = head.getElem();
+            result = head.getElement();
             head = head.getNext();
         } else {
             Node<E> aux1 = head;
@@ -73,7 +80,7 @@ public class ListLib<E> {
                 aux2 = aux2.getNext();
                 index--;
             }
-            result = aux2.getElem();
+            result = aux2.getElement();
             aux1.setNext(aux2.getNext());
         }
         size--;
@@ -88,7 +95,7 @@ public class ListLib<E> {
         for (int i = 0; i < index; i++) {
             node = node.getNext();
         }
-        result = node.getElem();
+        result = node.getElement();
         return result;
     }
 
@@ -97,10 +104,10 @@ public class ListLib<E> {
         size = 0;
     }
 
-    public ListLib<E> addAll(ListLib<E> list) {
-        Node<E> node = list.getHead();
+    public Lista<E> addAll(Lista<E> list) {
+        Node<E> node = head;
         for (int i = 0; i < list.size(); i++) {
-            add(node.getElem());
+            add(node.getElement());
             node = node.getNext();
         }
         return this;
@@ -108,15 +115,15 @@ public class ListLib<E> {
 
     @Override
     public boolean equals(Object obj) {
-        if (!(obj instanceof ListLib))
+        if (!(obj instanceof Lista))
             return false;
-        ListLib<E> list = (ListLib) obj;
+        Lista<E> list = (Lista) obj;
 
         if (list.size() != this.size)
             return false;
 
         Node<E> aux1 = this.head;
-        Node<E> aux2 = list.getHead();
+        Node<E> aux2 = this.head;
 
         while (aux1 != null) {
             if (!aux1.equals(aux2))
@@ -135,11 +142,53 @@ public class ListLib<E> {
     public boolean contains(E elem) {
         Node<E> node = head;
         for (int i = 0; i < size; i++) {
-            if (elem.equals(node.getElem()))
+            if (elem.equals(node.getElement()))
                 return true;
             node = node.getNext();
         }
         return false;
     }
 
+    private class Node<E> {
+            private E element;
+            private Node<E> next;
+
+            public Node(){
+                this.next= null;
+            }
+
+            public Node(E element){
+                this.element = element;
+                this.next=null;
+            }
+
+            public Node<E> getNext() {
+                return next;
+            }
+
+            public E getElement() {
+                return element;
+            }
+
+            public void setElement(E element) {
+                this.element = element;
+            }
+
+            public void setNext(Node<E> next) {
+                this.next = next;
+            }
+
+            @Override
+            public String toString(){
+                return element + ((next!=null)?", " + next : " }");
+            }
+
+            @Override
+            public boolean equals(Object obj){
+                if(!(obj instanceof Lista.Node))
+                    return false;
+                Node<E> node = (Node) obj;
+                return node.getElement().equals(element);
+            }
+        }
 }

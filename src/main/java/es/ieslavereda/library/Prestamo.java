@@ -4,18 +4,18 @@ package es.ieslavereda.library;
 import java.time.LocalDate;
 
 public class Prestamo<T> {
-    private T type;
+    private T info;
     private LocalDate fechaPrestamo;
     private LocalDate fechaDevolucion;
 
-    public Prestamo(T type, LocalDate fechaPrestamo) {
-        this.type = type;
-        this.fechaPrestamo = fechaPrestamo;
+    public Prestamo(T info) {
+        this.info = info;
+        this.fechaPrestamo = LocalDate.now();
         this.fechaDevolucion = null;
     }
 
-    public T getType() {
-        return type;
+    public T getInfo() {
+        return info;
     }
 
     public LocalDate getFechaPrestamo() {
@@ -26,17 +26,24 @@ public class Prestamo<T> {
         return fechaDevolucion;
     }
 
-    public void setFechaDevolucion(LocalDate fecha) {
-        fechaDevolucion = fecha;
+    public void devolver() {
+        this.fechaDevolucion = LocalDate.now();
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if(obj instanceof Prestamo){
+            Prestamo p = (Prestamo) obj;
+            return info.equals(p.info) && fechaPrestamo.equals(p.fechaPrestamo) && fechaDevolucion.equals(p.fechaDevolucion);
+        }
+        return false;
     }
 
     @Override
     public String toString() {
-        if (type instanceof Cliente)
-            return " Prestamo: " + ((Cliente)type).getNombre() + " fechaPrestamo=" + fechaPrestamo + ", fechaDevolucion=" + fechaDevolucion;
-        else
-            return " Prestamo: " + ((Ejemplar)type).getcodigoEj() + " fechaPrestamo=" + fechaPrestamo + ", fechaDevolucion=" + fechaDevolucion;
-
+        return " Prestamo: info " + info + ", " +
+                " fechaPrestamo=" + fechaPrestamo + ", fechaDevolucion=" + fechaDevolucion;
     }
+
 
 }

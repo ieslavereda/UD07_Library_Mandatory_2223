@@ -1,10 +1,13 @@
-package es.ieslavereda.library;
+package es.ieslavereda.library_2nversion;
+
 import es.ieslavereda.tad.Lista;
+
+import java.time.LocalDate;
 import java.util.Objects;
 
 
 public class Cliente {
-
+    public static final int MAX_EJEMPLARES_CLIENTE = 3;
     private String nombre;
     private String dni;
 
@@ -38,46 +41,25 @@ public class Cliente {
 
 
     public boolean prestar(Ejemplar ejemplar) {
-        if (ejemplar == null || ejemplar.isPrestado() || cantidadPrestados() >= Biblioteca.MAX_EJEMPLARES_CLIENTE)
+        if (ejemplar == null || prestados.size() >= MAX_EJEMPLARES_CLIENTE)
             return false;
-
         prestados.add(new Prestamo<>(ejemplar));
-        ejemplar.añadirRegistroPrestamo(this);
         return true;
-
     }
 
     public boolean devolver(Ejemplar ejemplar) {
-        if (ejemplar == null || !ejemplar.puedeDevolver(this))
+        if (ejemplar == null || getPrestados().isEmpty())
             return false;
 
-        Prestamo<Ejemplar> prestamo;
-
-        int i=0;
-        while ((prestamo = prestados.get(i))!=null) {
-            if(prestamo.getInfo().equals(ejemplar) && prestamo.getFechaDevolucion()==null) {
-                prestamo.devolver();
-                ejemplar.devolver();
+        for (int i = 0; i < getPrestados().size(); i++) {
+            if (prestados.get(i).getType().equals(ejemplar)) {
+                prestados.get(i).setFechaDevolucion(LocalDate.now());
+                prestados.remove(i);
                 return true;
             }
-            i++;
         }
 
         return false;
-    }
-
-    public int cantidadPrestados(){
-
-        Prestamo<Ejemplar> prestamo;
-        int cantidad=0;
-        int i=0;
-        while ((prestamo = prestados.get(i))!=null) {
-            if(prestamo.getFechaDevolucion()==null)
-                cantidad++;
-            i++;
-        }
-
-        return cantidad;
     }
 
     @Override

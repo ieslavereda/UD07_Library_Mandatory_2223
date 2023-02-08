@@ -1,14 +1,14 @@
-package es.ieslavereda.library;
+package es.ieslavereda.library_2nversion;
 
-public class Revista extends Publicacion{
+public class Revista extends Publicacion {
 
     private String nombre;
     private String tematica;
     private Periodicidad periodicidad;
 
 
-    public Revista(String editorial, int numPaginas, Impresion impresion, String nombre, String tematica, Periodicidad periodicidad) {
-        super(editorial, numPaginas, impresion);
+    public Revista(String editorial, int numPaginas, boolean enColor, String nombre, String tematica, Periodicidad periodicidad) {
+        super(editorial, numPaginas, enColor);
         this.nombre = nombre;
         this.tematica = tematica;
         this.periodicidad = periodicidad;
@@ -31,7 +31,7 @@ public class Revista extends Publicacion{
         return super.toString() + "\n - Revista: " + "nombre=" + nombre + ", periodicidad=" + periodicidad;
     }
 
-    enum Periodicidad{
+    public enum Periodicidad{
         SEMANAL("semanal"),
         MENSUAL("mensual"),
         TRIMESTRAL("trimestral");
